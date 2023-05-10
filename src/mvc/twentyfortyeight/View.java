@@ -45,8 +45,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
   //set the button color
   private void buttonUpdate(int row, int col, JButton button, String[][] board) {
-      button.setText(board[row][col]);
-      jButton66.setText("2");
+      
   }
   
   //show legal moves to player
