@@ -1,4 +1,4 @@
-package mvc.othello;
+package mvc.twentyfortyeight;
 import com.mrjaffesclass.apcs.messenger.*;
 
 /**
