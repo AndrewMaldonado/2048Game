@@ -15,7 +15,8 @@ public class Model implements MessageHandler {
   // Messaging system for the MVC
   private final Messenger mvcMessaging;
   private int gameOver;
-  int[][] board;
+  String[][] board;
+  
 
   // Model's data vControllerariables
 
@@ -26,7 +27,7 @@ public class Model implements MessageHandler {
    */
   public Model(Messenger messages) {
     mvcMessaging = messages;
-    this.board = new int[4][4];
+    this.board = new String[4][4];
   }
   
   /**
@@ -40,8 +41,12 @@ public class Model implements MessageHandler {
   
     //reset board and for new game
     public void newGame() {
-       
-  }
+        for(int row=0; row<this.board.length; row++) {
+            for (int col=0; col<this.board[0].length; col++) {
+            this.board[row][col] = "";
+            }
+        }
+    }
     
      
   
@@ -61,6 +66,11 @@ public class Model implements MessageHandler {
       Integer row = Integer.valueOf(position.substring(0,1));
       Integer col = Integer.valueOf(position.substring(1,2));
       
+        if (this.board[row][col].equals("")) {      
+                this.board[row][col] = "2";
+        }
+        this.mvcMessaging.notify("boardChange", this.board);
+                
       
      
         
@@ -71,6 +81,11 @@ public class Model implements MessageHandler {
       this.newGame();
     }
   }
+  
+  
+  
+  
+  
 }
     
     

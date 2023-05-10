@@ -25,8 +25,10 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     mvcMessaging = messages;   // Save the calling controller instance
     initComponents();           // Create and init the GUI components
     BList = new JButton[][] {
-        {this.jButton66, this.jButton67, this.jButton68, this.jButton69, this.jButton70, this.jButton71, this.jButton72, this.jButton73},
-        {this.jButton74, this.jButton75, this.jButton76, this.jButton77, this.jButton78, this.jButton79, this.jButton80, this.jButton81},
+        {this.jButton67, this.jButton66, this.jButton68, this.jButton69}, 
+        {this.jButton70, this.jButton71, this.jButton72, this.jButton73},
+        {this.jButton74, this.jButton75, this.jButton76, this.jButton77}, 
+        {this.jButton78, this.jButton79, this.jButton80, this.jButton81},
     };
   }
   
@@ -36,14 +38,15 @@ public class View extends javax.swing.JFrame implements MessageHandler {
    */
   public void init() {
     // Subscribe to messages here
-
+    this.mvcMessaging.subscribe("boardChange", this);
   }
  
   
 
   //set the button color
-  private void buttonUpdate(int row, int col, JButton button, int[][] board) {
-    
+  private void buttonUpdate(int row, int col, JButton button, String[][] board) {
+      button.setText(board[row][col]);
+      jButton66.setText("2");
   }
   
   //show legal moves to player
@@ -56,10 +59,10 @@ public class View extends javax.swing.JFrame implements MessageHandler {
       System.out.println("MSG: received by view: "+messageName+" | No data sent");
     }
     if (messageName.equals("boardChange")) {
-      int[][] board = (int[][])messagePayload;
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                buttonUpdate(i, j, BList[i][j], board);
+      String[][] board = (String[][])messagePayload;
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+                BList[i][j].setText(board[i][j]);
             }
         }   
     }
@@ -306,11 +309,14 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     private void onClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onClick
         // TODO add your handling code here:
         System.out.println("Clicked");
+        JButton position = (JButton)evt.getSource();
+        mvcMessaging.notify("playerMove", position.getName());
     }//GEN-LAST:event_onClick
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        mvcMessaging.notify("new game");
+        System.out.println("New Game");
+        mvcMessaging.notify("newGame");
     }//GEN-LAST:event_jButton1ActionPerformed
 
   /**
