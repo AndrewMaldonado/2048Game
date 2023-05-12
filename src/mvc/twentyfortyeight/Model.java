@@ -4,6 +4,9 @@ import com.mrjaffesclass.apcs.messenger.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
 
 /**
  * The model represents the data that the app uses.
@@ -45,6 +48,7 @@ public class Model implements MessageHandler {
     public void newGame() {
       for(int row=0; row<this.board.length; row++) {
         for (int col=0; col<this.board[0].length; col++) {
+          this.intBoard[row][col] = 0;
           this.board[row][col] = "";
           }
       }
@@ -74,6 +78,7 @@ public class Model implements MessageHandler {
         if (this.board[row][col].equals("")) {      
                 this.board[row][col] = "2";
         }
+        
         this.mvcMessaging.notify("boardChange", this.board);
                 
       
@@ -89,14 +94,21 @@ public class Model implements MessageHandler {
   
   public void spawnRandom() {
     boolean torf = false;
-    //make chance for 1 to be 4  
+    //make chance for 1 to be 4
+    int ranFour = (int)(Math.random() * 2);  
     while(!torf) {
-        int ranRow = (int)(Math.random() * 3);
-        int ranCol = (int)(Math.random() * 3);
+        int ranRow = (int)(Math.random() * 4);
+        int ranCol = (int)(Math.random() * 4);
         if(intBoard[ranRow][ranCol] == 0) {
-          intBoard[ranRow][ranCol] = 2;
-          board[ranRow][ranCol] = "2";
-          torf = true;
+          if(ranFour == 0) {
+            intBoard[ranRow][ranCol] = 4;
+            board[ranFour][ranCol] = "4";
+            torf = true;
+          } else {
+            intBoard[ranRow][ranCol] = 2;
+            board[ranRow][ranCol] = "2";
+            torf = true;
+          }
         }
       }
   }
@@ -113,9 +125,70 @@ public class Model implements MessageHandler {
     }
   }
 
+
+  //input represented by 1 N, -1 S, 2 E, -2 W
+  public boolean canMash() {
+    //check if can mash same numbers together to make bigger num
+
+    
+    
+    return false;
+  }
+
+  public void mash() {
+    
+
+
+  }
   
+  public void move(int dir) {
+    //move all nums as far to the input direction then check with mash
+    if(dir == 1) {
+      for(int i = 0; i < this.intBoard.length; i++) {
+        for(int j = 0; j < this.intBoard[0].length; j++) {
+          //move piece
+        }
+      }
+    } else if(dir == -1) {
+      for(int i = 0; i < this.intBoard.length; i++) {
+        for(int j = 0; j < this.intBoard[0].length; j++) {
+          //move piece
+        }
+      }
+    } else if(dir == 2) {
+      for(int i = 0; i < this.intBoard.length; i++) {
+        for(int j = 0; j < this.intBoard[0].length; j++) {
+          //move piece
+        }
+      }
+    } else if(dir == -2) {
+      for(int i = 0; i < this.intBoard.length; i++) {
+        for(int j = 0; j < this.intBoard[0].length; j++) {
+          //move piece
+        }
+      }
+    }
+  }
   
-  
+  public void keyPressed(KeyEvent event) {
+    int key = event.getKeyCode();
+    int input = 0;
+    if(key == KeyEvent.VK_UP) {
+      System.out.println("Up");
+      //move pieces up
+      this.move(1);
+      input = 1;
+    } else if(key == KeyEvent.VK_DOWN) {
+      System.out.println("Down");
+      input = -1;
+    } else if(key == KeyEvent.VK_RIGHT) {
+      System.out.println("Right");
+      input = 2;
+    } else if(key == KeyEvent.VK_LEFT) {
+      System.out.println("Left");
+      input = -2;
+    }
+  }
   
 }
     
