@@ -43,13 +43,14 @@ public class Model implements MessageHandler {
   
     //reset board and for new game
     public void newGame() {
+      for(int row=0; row<this.board.length; row++) {
+        for (int col=0; col<this.board[0].length; col++) {
+          this.board[row][col] = "";
+          }
+      }
       spawnRandom();
       spawnRandom();
-        for(int row=0; row<this.board.length; row++) {
-            for (int col=0; col<this.board[0].length; col++) {
-              this.board[row][col] = "";
-            }board
-        }
+      this.mvcMessaging.notify("boardChange", this.board);
     }
     
      
@@ -94,6 +95,7 @@ public class Model implements MessageHandler {
         int ranCol = (int)(Math.random() * 3);
         if(intBoard[ranRow][ranCol] == 0) {
           intBoard[ranRow][ranCol] = 2;
+          board[ranRow][ranCol] = "2";
           torf = true;
         }
       }
