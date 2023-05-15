@@ -127,13 +127,6 @@ public class Model implements MessageHandler {
 
 
   //input represented by 1 N, -1 S, 2 E, -2 W
-  public boolean canMash() {
-    //check if can mash same numbers together to make bigger num
-
-    
-    
-    return false;
-  }
 
   public void mash() {
     
@@ -143,28 +136,53 @@ public class Model implements MessageHandler {
   
   public void move(int dir) {
     //move all nums as far to the input direction then check with mash
+    int[] position = new int[2];
     if(dir == 1) {
-      for(int i = 0; i < this.intBoard.length; i++) {
-        for(int j = 0; j < this.intBoard[0].length; j++) {
+      for(int row = 4; row > 0; row--) {
+        for(int col = 4; col > 0; col--) {
           //move piece
+          position[0] = row;
+          position[1] = col;
+          if(intBoard[row - 1][col] == 0) {
+            intBoard[row - 1][col] = intBoard[row][col];
+            intBoard[row][col] = 0;
+          }
         }
       }
     } else if(dir == -1) {
-      for(int i = 0; i < this.intBoard.length; i++) {
-        for(int j = 0; j < this.intBoard[0].length; j++) {
+      for(int row = 0; row < this.intBoard.length; row++) {
+        for(int col = 0; col < this.intBoard[0].length; col++) {
           //move piece
+          position[0] = row;
+          position[1] = col;
+          if(intBoard[row + 1][col] == 0) {
+            intBoard[row + 1][col] = intBoard[row][col];
+            intBoard[row][col] = 0;
+          }
         }
       }
     } else if(dir == 2) {
-      for(int i = 0; i < this.intBoard.length; i++) {
-        for(int j = 0; j < this.intBoard[0].length; j++) {
+      for(int row = 0; row < this.intBoard.length; row++) {
+        for(int col = 0; col < this.intBoard[0].length; col++) {
           //move piece
+          position[0] = row;
+          position[1] = col;
+          if(intBoard[row][col + 1] == 0) {
+            intBoard[row][col + 1] = intBoard[row][col];
+            intBoard[row][col] = 0;
+          }
         }
       }
     } else if(dir == -2) {
-      for(int i = 0; i < this.intBoard.length; i++) {
-        for(int j = 0; j < this.intBoard[0].length; j++) {
+      for(int row = 4; row > 0; row++) {
+        for(int col = 4; col > 0; col++) {
           //move piece
+          position[0] = row;
+          position[1] = col;
+          if(intBoard[row][col - 1] == 0) {
+            intBoard[row][col - 1] = intBoard[row][col];
+            intBoard[row][col] = 0;
+          }
         }
       }
     }
@@ -172,21 +190,22 @@ public class Model implements MessageHandler {
   
   public void keyPressed(KeyEvent event) {
     int key = event.getKeyCode();
-    int input = 0;
     if(key == KeyEvent.VK_UP) {
       System.out.println("Up");
       //move pieces up
       this.move(1);
-      input = 1;
     } else if(key == KeyEvent.VK_DOWN) {
       System.out.println("Down");
-      input = -1;
+      //move pieces down
+      this.move(-1);
     } else if(key == KeyEvent.VK_RIGHT) {
       System.out.println("Right");
-      input = 2;
+      //move pieces right
+      this.move(2);
     } else if(key == KeyEvent.VK_LEFT) {
       System.out.println("Left");
-      input = -2;
+      //move pieces left
+      this.move(-2);
     }
   }
   
