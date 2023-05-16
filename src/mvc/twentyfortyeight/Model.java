@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 
 /**
  * The model represents the data that the app uses.
@@ -133,11 +134,33 @@ public class Model implements MessageHandler {
 
 
   }
+
+  public boolean keyPressed(KeyEvent event) {
+    int key = event.getKeyCode();
+    if(key == KeyEvent.VK_UP) {
+      System.out.println("Up");
+      //move pieces up
+      this.mvcMessaging.notify("moveUp");
+    } else if(key == KeyEvent.VK_DOWN) {
+      System.out.println("Down");
+      //move pieces down
+      this.move(-1);
+    } else if(key == KeyEvent.VK_RIGHT) {
+      System.out.println("Right");
+      //move pieces right
+      this.move(2);
+    } else if(key == KeyEvent.VK_LEFT) {
+      System.out.println("Left");
+      //move pieces left
+      this.move(-2);
+    }
+  } 
   
-  public void move(int dir) {
+  public void move(int keyCode) {
     //move all nums as far to the input direction then check with mash
     int[] position = new int[2];
-    if(dir == 1) {
+    if(Keyboard.isKeyPressed(keyCode)) {
+      System.out.println("Up");
       for(int row = 4; row > 0; row--) {
         for(int col = 4; col > 0; col--) {
           //move piece
@@ -149,7 +172,7 @@ public class Model implements MessageHandler {
           }
         }
       }
-    } else if(dir == -1) {
+    } else if(Keyboard.isKeyPressed(keyCode)) {
       for(int row = 0; row < this.intBoard.length; row++) {
         for(int col = 0; col < this.intBoard[0].length; col++) {
           //move piece
@@ -188,26 +211,6 @@ public class Model implements MessageHandler {
     }
   }
   
-  public void keyPressed(KeyEvent event) {
-    int key = event.getKeyCode();
-    if(key == KeyEvent.VK_UP) {
-      System.out.println("Up");
-      //move pieces up
-      this.move(1);
-    } else if(key == KeyEvent.VK_DOWN) {
-      System.out.println("Down");
-      //move pieces down
-      this.move(-1);
-    } else if(key == KeyEvent.VK_RIGHT) {
-      System.out.println("Right");
-      //move pieces right
-      this.move(2);
-    } else if(key == KeyEvent.VK_LEFT) {
-      System.out.println("Left");
-      //move pieces left
-      this.move(-2);
-    }
-  }
   
 }
     

@@ -2,6 +2,7 @@ package mvc.twentyfortyeight;
 import com.mrjaffesclass.apcs.messenger.*;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 /**
  * MVC Template
  * This is a template of an MVC framework used by APCS for the 
@@ -67,7 +68,26 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     }
   }
 
-    
+  public void keyPressed(KeyEvent event) {
+    int key = event.getKeyCode();
+    if(key == KeyEvent.VK_UP) {
+      System.out.println("Up");
+      //move pieces up
+      this.mvcMessaging.notify("moveUp");
+    } else if(key == KeyEvent.VK_DOWN) {
+      System.out.println("Down");
+      //move pieces down
+      this.move(-1);
+    } else if(key == KeyEvent.VK_RIGHT) {
+      System.out.println("Right");
+      //move pieces right
+      this.move(2);
+    } else if(key == KeyEvent.VK_LEFT) {
+      System.out.println("Left");
+      //move pieces left
+      this.move(-2);
+    }
+  } 
 
 
   /**
