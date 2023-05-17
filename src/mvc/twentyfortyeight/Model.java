@@ -135,12 +135,12 @@ public class Model implements MessageHandler {
 
   }
 
-  public boolean keyPressed(KeyEvent event) {
+  public void keyPressed(KeyEvent event) {
     int key = event.getKeyCode();
     if(key == KeyEvent.VK_UP) {
       System.out.println("Up");
       //move pieces up
-      this.mvcMessaging.notify("moveUp");
+      this.move(1);
     } else if(key == KeyEvent.VK_DOWN) {
       System.out.println("Down");
       //move pieces down
@@ -159,7 +159,7 @@ public class Model implements MessageHandler {
   public void move(int keyCode) {
     //move all nums as far to the input direction then check with mash
     int[] position = new int[2];
-    if(Keyboard.isKeyPressed(keyCode)) {
+    if(keyCode == 1) {
       System.out.println("Up");
       for(int row = 4; row > 0; row--) {
         for(int col = 4; col > 0; col--) {
@@ -172,7 +172,7 @@ public class Model implements MessageHandler {
           }
         }
       }
-    } else if(Keyboard.isKeyPressed(keyCode)) {
+    } else if(keyCode == -1) {
       for(int row = 0; row < this.intBoard.length; row++) {
         for(int col = 0; col < this.intBoard[0].length; col++) {
           //move piece
@@ -184,7 +184,7 @@ public class Model implements MessageHandler {
           }
         }
       }
-    } else if(dir == 2) {
+    } else if(keyCode == 2) {
       for(int row = 0; row < this.intBoard.length; row++) {
         for(int col = 0; col < this.intBoard[0].length; col++) {
           //move piece
@@ -196,7 +196,7 @@ public class Model implements MessageHandler {
           }
         }
       }
-    } else if(dir == -2) {
+    } else if(keyCode == -2) {
       for(int row = 4; row > 0; row++) {
         for(int col = 4; col > 0; col++) {
           //move piece

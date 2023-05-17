@@ -77,15 +77,15 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     } else if(key == KeyEvent.VK_DOWN) {
       System.out.println("Down");
       //move pieces down
-      this.move(-1);
+      this.mvcMessaging.notify("moveDown");
     } else if(key == KeyEvent.VK_RIGHT) {
       System.out.println("Right");
       //move pieces right
-      this.move(2);
+      this.mvcMessaging.notify("moveRight");
     } else if(key == KeyEvent.VK_LEFT) {
       System.out.println("Left");
       //move pieces left
-      this.move(-2);
+      this.mvcMessaging.notify("moveLeft");
     }
   } 
 
